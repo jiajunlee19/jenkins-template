@@ -70,12 +70,57 @@ This repo demonstrate how to setup Jenkins using Docker.
 
 <br>
 
-### Build your jenkins pipeline
+### Build your Jenkins Pipeline
 1. Create a new pipeline in the jenkins UI.
 2. Declare pipeline using repo's [Jenkinsfile](/jenkins/Jenkinsfile)
+    - Generally the workflow of the pipeline will be:
+        - Build the app
+        - Kill specific previous-deployed running shell process
+        - Deploy the app and keep it running until the next pipeline trigger
+    - Use `chmod` to make the sh script as executable
+        ```
+        sh 'chmod +x ./jenkins/scripts/deploy.sh'
+        ```
+    - Use `JENKINS_NODE_COOKIE` to stop background process to be killed after job completed
+        ```
+        sh JENKINS_NODE_COOKIE=dontKillMe ./jenkins/scripts/deploy.sh
+        ```
 3. Recommended options:
     - Do not allow concurrent builds and abort previous builds if new triggers came in
     - Preserve stashes from most recent completed build
+
+<br>
+
+# Using Dedicated Jenkins Agent
+1. Ensure that java is installed on the agent machine. Best to have the same version per the jenkins' controller. Current repo's java version is `jdk-17.0.13`.
+
+2. Environment variables should be set based on the java installed path. Verify by running `java --version` in terminal.
+    - %JAVA_HOME% = `path/to/jdk-17.0.13`
+    - %PATH% = `%JAVA_HOME%/bin`
+
+3. Create a folder and cd to it. This is the workspace for the agent.
+    ```
+    cd path\to\your-agent-label
+    ```
+
+4. Download the agent.jar, substitute the variables accordingly.
+    ```
+    curl.exe -sO ${your_jenkins_url}/jnlpJars/agent.jar
+    ```
+
+5. Initiate the agent connection, substitute the variables accordingly.
+    ```
+    java -jar agent.jar -url ${your_jenkins_url} -secret ${your_agent_secret} -name ${your_agent_label} -webSocket -workDir ${your_path_to_agent_set_in_step_3}
+    ```
+
+6. Update your pipeline to run with the agent.
+    ```
+    agent {
+        node {
+            label 'your-agent-label'
+        }
+    }
+    ```
 
 <br>
 
