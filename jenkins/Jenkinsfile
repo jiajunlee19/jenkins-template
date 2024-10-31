@@ -6,15 +6,18 @@ pipeline {
     //     }
     // }
 
-    stage {
+    stages {
         stage('Build') {
             steps {
+                sh 'chmod +x ./jenkins/scripts/build.sh'
                 sh './jenkins/scripts/build.sh'
             }
         }
 
         stage('Deploy') {
             steps {
+                sh 'chmod +x ./jenkins/scripts/kill.sh'
+                sh 'chmod +x ./jenkins/scripts/deploy.sh'
                 sh './jenkins/scripts/kill.sh'
                 sh './jenkins/scripts/deploy.sh'
             }
