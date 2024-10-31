@@ -19,7 +19,7 @@ pipeline {
                 sh 'chmod +x ./jenkins/scripts/kill.sh'
                 sh 'chmod +x ./jenkins/scripts/deploy.sh'
                 sh './jenkins/scripts/kill.sh'
-                sh './jenkins/scripts/deploy.sh'
+                sh 'JENKINS_NODE_COOKIE=dontKillMe ./jenkins/scripts/deploy.sh'
             }
         }
     }
