@@ -73,6 +73,9 @@ This repo demonstrate how to setup Jenkins using Docker.
 ### Build your jenkins pipeline
 1. Create a new pipeline in the jenkins UI.
 2. Declare pipeline using repo's [Jenkinsfile](/jenkins/Jenkinsfile)
+3. Recommended options:
+    - Do not allow concurrent builds and abort previous builds if new triggers came in
+    - Preserve stashes from most recent completed build
 
 <br>
 
