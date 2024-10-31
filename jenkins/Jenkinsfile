@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    // agent {
+    //     node {
+    //         label 'your-agent-label'
+    //     }
+    // }
+
+    stage {
+        stage('Build') {
+            steps {
+                sh './jenkins/scripts/build.sh'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/kill.sh'
+                sh './jenkins/scripts/deploy.sh'
+            }
+        }
+    }
+}
