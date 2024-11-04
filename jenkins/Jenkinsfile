@@ -7,6 +7,20 @@ pipeline {
     // }
 
     stages {
+        stage('Install') {
+            steps {
+                sh 'chmod +x ./jenkins/scripts/install.sh'
+                sh './jenkins/scripts/install.sh'
+            }
+        }
+
+        stage('Kill') {
+            steps {
+                sh 'chmod +x ./jenkins/scripts/kill.sh'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'chmod +x ./jenkins/scripts/build.sh'
@@ -16,9 +30,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'chmod +x ./jenkins/scripts/kill.sh'
                 sh 'chmod +x ./jenkins/scripts/deploy.sh'
-                sh './jenkins/scripts/kill.sh'
                 sh 'JENKINS_NODE_COOKIE=dontKillMe ./jenkins/scripts/deploy.sh'
             }
         }

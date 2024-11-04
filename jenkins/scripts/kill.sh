@@ -6,8 +6,8 @@ echo '[info] Killing existing listening port process ...'
 
 source ./.env || echo '[warn] Failed to read .env, fallback to default.'
 
-echo '[info] PORT =' ${PORT:-3000}
-portPID=$(netstat -ano | grep "LISTENING" | grep "TCP" | grep ":${PORT:-3000}" | awk '{print $5}' | sort -u)
+echo '[info] Finding localhost 0.0.0.0 TCP listening PORT =' ${PORT:-3000}
+portPID=$(netstat -ano | grep "LISTENING" | grep "TCP" | awk '{print $2,$NF}' | grep "0.0.0.0" | grep ":${PORT:-3000}" | awk '{print $NF}' | sort -u)
 
 if [[ -z "${portPID}" ]]; then 
     echo '[info] No existing listening port process found !'
