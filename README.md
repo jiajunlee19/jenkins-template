@@ -74,9 +74,12 @@ This repo demonstrate how to setup Jenkins using Docker.
 1. Create a new pipeline in the jenkins UI.
 2. Declare pipeline using repo's [Jenkinsfile](/jenkins/Jenkinsfile)
     - Generally the workflow of the pipeline will be:
-        - Build the app
-        - Kill specific previous-deployed running shell process
-        - Deploy the app and keep it running until the next pipeline trigger
+        - [Install dependency](/jenkins/scripts/install.sh)
+        - [Kill specific previous-deployed running shell process](/jenkins//scripts/kill.sh)
+        - [Build the app](/jenkins/scripts/build.sh)
+        - [Deploy the app and keep it running](/jenkins/scripts/deploy.sh)
+
+3. Tips:
     - Use `chmod` to make the sh script as executable
         ```
         sh 'chmod +x ./jenkins/scripts/deploy.sh'
@@ -88,6 +91,8 @@ This repo demonstrate how to setup Jenkins using Docker.
 3. Recommended options:
     - Do not allow concurrent builds and abort previous builds if new triggers came in
     - Preserve stashes from most recent completed build
+
+4. Once the pipeline setup completed, configure webhooks to enable auto-triggering based on dedicated events.
 
 <br>
 
@@ -121,6 +126,12 @@ This repo demonstrate how to setup Jenkins using Docker.
         }
     }
     ```
+
+7. Ensure that your agent has all the prior dependencies installed and available.
+    - Files that are not version-controlled (eg: .env file) needs to be placed manually to the agent machine.
+    - Relevant application (eg: Git, NodeJS) needs to be installed in the agent machine.
+    - Relevant environment variables (eg: Proxy, Certificate Path) need to be set accordingly in the agent machine.
+    - Consider using Docker to containerize all the related setup required for consistency.
 
 <br>
 
