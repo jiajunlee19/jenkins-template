@@ -16,6 +16,13 @@ pipeline {
             }
         }
 
+        // stage('Dockerize') {
+        //     steps {
+        //         sh 'chmod +x ./jenkins/scripts/dockerize.sh'
+        //         sh './jenkins/scripts/dockerize.sh'
+        //     }
+        // }
+
         stage('Install') {
             steps {
                 sh 'chmod +x ./jenkins/scripts/install.sh'
