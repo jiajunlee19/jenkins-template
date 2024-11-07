@@ -139,6 +139,7 @@ This repo demonstrate how to setup Jenkins using Docker.
     - Relevant environment variables (eg: Proxy, Certificate Path) need to be set accordingly in the agent machine.
 
 8. Advance Tips: Consider using Docker to containerize all the related setup required for consistency across several agents.
+    - Checkout the commands in [dockerize.sh](/jenkins/scripts/dockerize.sh)
 
 <br>
 
