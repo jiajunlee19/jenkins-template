@@ -80,6 +80,13 @@ This repo demonstrate how to setup Jenkins using Docker.
         - [Deploy the app and keep it running](/jenkins/scripts/deploy.sh)
 
 3. Tips:
+    - Use `withCredentials` to pass over .env file stored as credential secret file into workspace directory. 
+        ```
+        withCredentials([file(credentialsId: 'youCredId', variable: 'envFile')]) {
+            sh 'cp $envFile $WORKSPACE'
+            echo 'Copied envFile into $WORKSPACE !'
+        }
+        ```
     - Use `chmod` to make the sh script as executable
         ```
         sh 'chmod +x ./jenkins/scripts/deploy.sh'
@@ -128,10 +135,10 @@ This repo demonstrate how to setup Jenkins using Docker.
     ```
 
 7. Ensure that your agent has all the prior dependencies installed and available.
-    - Files that are not version-controlled (eg: .env file) needs to be placed manually to the agent machine.
     - Relevant application (eg: Git, NodeJS) needs to be installed in the agent machine.
     - Relevant environment variables (eg: Proxy, Certificate Path) need to be set accordingly in the agent machine.
-    - Consider using Docker to containerize all the related setup required for consistency.
+
+8. Advance Tips: Consider using Docker to containerize all the related setup required for consistency across several agents.
 
 <br>
 
