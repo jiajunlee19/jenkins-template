@@ -7,6 +7,15 @@ pipeline {
     // }
 
     stages {
+        stage('Init') {
+            steps {
+                withCredentials([file(credentialsId: 'youCredId', variable: 'envFile')]) {
+                    sh 'cp $envFile $WORKSPACE'
+                    echo 'Copied envFile into $WORKSPACE !'
+                }
+            }
+        }
+
         stage('Install') {
             steps {
                 sh 'chmod +x ./jenkins/scripts/install.sh'
