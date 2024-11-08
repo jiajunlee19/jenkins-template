@@ -83,8 +83,8 @@ This repo demonstrate how to setup Jenkins using Docker.
     - Use `withCredentials` to pass over .env file stored as credential secret file into workspace directory. 
         ```
         withCredentials([file(credentialsId: 'youCredId', variable: 'envFile')]) {
-            sh 'cp $envFile $WORKSPACE'
-            echo 'Copied envFile into $WORKSPACE !'
+            sh 'cp "$envFile" "$WORKSPACE"'
+            echo "Copied envFile into $WORKSPACE !"
         }
         ```
     - Use `chmod` to make the sh script as executable
