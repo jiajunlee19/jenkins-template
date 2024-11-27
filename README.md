@@ -56,18 +56,6 @@ This repo demonstrate how to setup Jenkins using Docker.
 
 5. Navigate to [http://localhost:8080/](http://localhost:8080/) and unlock with the initialAdminPassword copied.
 
-6. Stick on jenkins path in bash
-    ```
-    docker exec -it jenkins-blueocean bash
-    ```
-
-7. Move to jenkins_home, under workspace is where your project's file are stored in. 
-    ```
-    cd /var/jenkins_home
-    ```
-
-8. Initialize your workspace directory accordingly if needed. The path will look like `/var/jenkins/home/workspace/your-project-name/`.
-
 <br>
 
 ### Build your Jenkins Pipeline
@@ -103,7 +91,7 @@ This repo demonstrate how to setup Jenkins using Docker.
 
 <br>
 
-# Using Dedicated Jenkins Agent
+# Using Dedicated Jenkins Agent (Windows)
 1. Ensure that java is installed on the agent machine. Best to have the same version per the jenkins' controller. Current repo's java version is `jdk-17.0.13`.
 
 2. Environment variables should be set based on the java installed path. Verify by running `java --version` in terminal.
@@ -138,7 +126,7 @@ This repo demonstrate how to setup Jenkins using Docker.
     - Relevant application (eg: Git, NodeJS) needs to be installed in the agent machine.
     - Relevant environment variables (eg: Proxy, Certificate Path) need to be set accordingly in the agent machine.
 
-8. Advance Tips: Consider using Docker to containerize all the related setup required for consistency across several agents.
+8. Advance Tips: Consider skipping Step #7 by using Docker to containerize all the related setup required for consistency across several agents.
     - Checkout the commands in [dockerize.sh](/jenkins/scripts/dockerize.sh)
 
 <br>
