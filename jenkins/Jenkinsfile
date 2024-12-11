@@ -10,7 +10,7 @@ pipeline {
         string(name: 'email_to', defaultValue: 'email@email.com', description: 'Jenkins Notifications E-mail To')
         string(name: 'email_bcc', defaultValue: '', description: 'Jenkins Notifications E-mail Bcc')
         string(name: 'email_cc', defaultValue: 'email@email.com', description: 'Jenkins Notifications E-mail Cc')
-        string(name: 'use_docker', defaultValue: 'true', description: 'use_docker true/false to toggle method to execute stages')
+        string(name: 'use_docker', defaultValue: 'false', description: 'use_docker true/false to toggle method to execute stages')
     }
 
     stages {
